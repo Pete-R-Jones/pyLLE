@@ -8,10 +8,10 @@ import time
 import sys
 import subprocess as sub
 import os
-import inspect
+
 from copy import copy
 import pickle as pkl
-import shutil
+
 import tempfile
 from prettytable import PrettyTable
 import warnings
@@ -20,8 +20,8 @@ import matplotlib.gridspec as gridspec
 from matplotlib import ticker
 import matplotlib.font_manager as font_manager
 from datetime import datetime
-from plotly import tools
-from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
+
+from plotly.offline import iplot
 import plotly.graph_objs as go
 
 with warnings.catch_warnings():
@@ -562,7 +562,7 @@ class LLEsolver(object):
         if sys.platform == 'linux2' or sys.platform == 'linux':
             julia = 'julia'
         if sys.platform == 'win32':
-            julia = os.path.expanduser('~') + '\\AppData\\Local\\Julia-1.1.1\\bin\\julia.exe'
+            julia = os.path.expanduser('~') + '\\AppData\\Local\\Programs\\Julia-1.7.3\\bin\\julia.exe'
 
         command = [julia, path_juliaScript , tmp_dir, str(tol), str(maxiter), str(step_factor)]
         self.JuliaSolver = sub.Popen(command, stdout=sub.PIPE, stderr=sub.PIPE)
