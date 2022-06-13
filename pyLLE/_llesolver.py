@@ -1,25 +1,24 @@
-import numpy as np
-from ._analyzedisp import AnalyzeDisp
-import scipy.interpolate as itp
-import scipy.optimize as optm
-import scipy.fftpack as fft
-import matplotlib.pyplot as plt
+import os
 import time
+from datetime import datetime
 import sys
 import subprocess as sub
-import os
-
-from copy import copy
-import pickle as pkl
-
-import tempfile
-from prettytable import PrettyTable
 import warnings
+from copy import copy
+import tempfile
+
+import numpy as np
+from ._analyzedisp import AnalyzeDisp
+import scipy.optimize as optm
+import scipy.fftpack as fft
+import pickle as pkl
+from prettytable import PrettyTable
+
+import matplotlib.pyplot as plt
 import matplotlib as mpl
 import matplotlib.gridspec as gridspec
 from matplotlib import ticker
 import matplotlib.font_manager as font_manager
-from datetime import datetime
 
 from plotly.offline import iplot
 import plotly.graph_objs as go
@@ -28,7 +27,6 @@ with warnings.catch_warnings():
     warnings.filterwarnings("ignore", category=FutureWarning)
     import h5py
 
-import ipdb
 
 
 backend = mpl.get_backend()
@@ -36,13 +34,6 @@ path_juliaScript = os.path.dirname(os.path.abspath(__file__))
 path_juliaScript = os.path.join(path_juliaScript, 'ComputeLLE.jl')
 tmp_dir = tempfile.mkdtemp()
 os.rmdir(tmp_dir) # delete folder as the temp file will not be in it but will be used as a prefix
-# print('-'*50)
-# print('Path to temporary dir to save .h5 files with prefix:')
-# print(tmp_dir)
-# print('-'*50)
-# print('Path to Julia script: ')
-# print(path_juliaScript)
-# print('-'*50)
 
 
 
@@ -57,8 +48,6 @@ try:
 except:
     # launching trhough a normal python
     pyType = 'normal'
-
-# print(pyType)
 
 
 class MyLogger():

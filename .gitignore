@@ -6,3 +6,8 @@ Icon^M
 .DS_Store
 Stable
 pipDeploy
+build/lib/pyLLE/__init__.py
+build/lib/pyLLE/_analyzedisp.py
+build/lib/pyLLE/_llesolver.py
+build/lib/pyLLE/ComputeLLE.jl
+example/NotebookExample.ipynb
