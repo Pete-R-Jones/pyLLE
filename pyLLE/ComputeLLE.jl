@@ -23,20 +23,17 @@ end
 
 function SaveResults(dir, S)
     h5file = dir * "ResultsJulia.h5"
-    # print(h5file)
-    # print("\n")
     h5open(h5file, "w") do file
-        g = g_create(file, "Results") # create a group
-        #g = create_group(file, "Results") #new version of HDF5 changed the funcion !!!!!!
+        # g = g_create(file, "Results") # create a group for julia version 1.1.1
+        g = create_group(file, "Results") # for julia version 1.7.3
         
         for ii in S
             g[ii[1]*"Real"] = real(ii[2])              # create a scalar dataset inside the group
             g[ii[1]*"Imag"] = imag(ii[2])
         end
-        attrs(g)["Description"] = "This group contains only a single dataset" # an attribute
-        #attributes(g)["Description"] = "This group contains only a single dataset" # might be needed with new julia
+        # attrs(g)["Description"] = "This group contains only a single dataset" # an attribute for julia version 1.1.1
+        attributes(g)["Description"] = "This group contains only a single dataset" # for julia version 1.7.3
     end
-        # attrs(g)["Description"] = "This group contains only a single dataset" # an attribute
 end
 
 # ----------------------------------------------------

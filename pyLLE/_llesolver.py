@@ -557,7 +557,6 @@ class LLEsolver(object):
         self.JuliaSolver = sub.Popen(command, stdout=sub.PIPE, stderr=sub.PIPE)
         print('Launching Julia....')
         line = ''
-        len_lin = len(line)
         fname = tmp_dir + 'log.log'
         print('Temp file can be found in: {}'.format(fname))
         conv_err = False
