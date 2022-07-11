@@ -8,7 +8,7 @@ function Loadh5Param(dir)
     res = Dict()
     sim = Dict()
     sim_name = ["res", "sim"]
-    par = [["Qc", "R", "ng", "Qi", "gamma","dispfile"], ["dphi","Pin", "Tscan", "domega_init", "domega_end", "domega_stop", "f_pmp", "mu_sim", "debug", "ind_aux"]]
+    par = [["Qc", "R", "ng", "Qi", "gamma","dispfile"], ["dphi","Pin", "Tscan", "domega_init", "domega_end", "domega_stop", "f_pmp", "mu_sim", "steps", "debug", "ind_aux"]]
     cnt = 1
     for sim_par = [res, sim]
         for it = par[cnt]
@@ -70,6 +70,7 @@ debug = Bool(sim["debug"][1])
 t_end = sim["Tscan"][1]
 fpmp = sim["f_pmp"][1]
 Pin = sim["Pin"][1]
+steps = sim["steps"][1]
 if length(sim["f_pmp"])>1
     faux = sim["f_pmp"][2:length(sim["f_pmp"])]
     Paux = sim["Pin"][2:length(sim["f_pmp"])]
@@ -163,7 +164,7 @@ u0=ifft_plan*Enoise
 
 # -- Output Dict --
 S = Dict()
-num_probe=1000
+num_probe=steps
 S["u_probe"] = 1im*zeros(num_probe, length(u0))
 S["Em_probe"] = 1im*zeros(num_probe, length(u0))
 S["comb_power"] = zeros(num_probe,)

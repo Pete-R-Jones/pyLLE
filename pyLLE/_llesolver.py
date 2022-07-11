@@ -770,7 +770,7 @@ class LLEsolver(object):
         '''
         Plot a figure with 3 subplots.
 
-        - Top subplot = map of the spectra for the steps taken by the LLE (step sub-sampled to be 1000)
+        - Top subplot = map of the spectra for the steps taken by the LLE (step should be defaulted to 1000)
         - middle subplot = temporal map of the intensity inside the resonator for the steps of the LLE
         - bottom subplot = normalized comb power
 
@@ -793,7 +793,7 @@ class LLEsolver(object):
         CmbPow = self.sol['comb_power'] /self.sol['comb_power'].max()
         det = self.sol['detuning']*1e-9/(2*np.pi)
 
-        step = np.arange(0, 1000)
+        step = np.arange(0, self.sim['steps'])
         self._plotPower = True
         if not pyType == 'jupyter' or do_matplotlib:
             # --  Create the Figure --
@@ -838,7 +838,7 @@ class LLEsolver(object):
             ax[4].set_xlabel('LLE Step (sub-sampled)')
             ax[4].set_ylabel('Norm. Comb Pwr')
             ax[6].set_ylabel('Detuning (GHz)')
-            ax[0].set_xlim([0,1000])
+            ax[0].set_xlim([0,self.sim['steps']])
             [label.set_visible(False) for label in ax[0].get_xticklabels()]
             [label.set_visible(False) for label in ax[2].get_xticklabels()]
 
@@ -902,7 +902,7 @@ class LLEsolver(object):
 
     def PlotCombSpectra(self, ind, f=None, ax=None, label=None, pwr='both', do_matplotlib = False, plot = True, style = 'line'):
         '''
-        Plot the spectra for a given index in the 1000 sub-sampled LLE steps
+        Plot the spectra for a given index in the sub-sampled LLE steps
 
         **Input**
 
@@ -1026,7 +1026,7 @@ class LLEsolver(object):
 
     def PlotSolitonTime(self, ind, f=None, ax=None, label=None, do_matplotlib = False):
         '''
-        Plot the spectra for a given index in the 1000 sub-sampled LLE step
+        Plot the spectra for a given index in the sub-sampled LLE step
 
         **Input**
 
