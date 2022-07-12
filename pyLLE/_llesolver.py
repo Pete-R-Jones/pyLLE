@@ -275,6 +275,12 @@ class LLEsolver(object):
         assert 'R' in self.res.keys(), 'Please provide R'
         assert 'Tscan' in self.sim.keys(), 'Please provide Tscan'
         assert 'dispfile' in self.res.keys(), 'Please provide dispfile'
+        
+        #Check if steps parameter is given (default to 1000)
+        try:
+            self.sim['steps']
+        except KeyError:
+            self.sim['steps'] = 1000
 
         # -- Setup the Logger ---
         if self._debug:
@@ -420,7 +426,8 @@ class LLEsolver(object):
                     'domega_end': (u'\u03B4\u03C9_end',1e-9/(2*np.pi), u'x2\u03C0 GHz'),
                     'domega_stop': (u'\u03B4\u03C9_stop',1e-9/(2*np.pi), u'x2\u03C0 GHz'),
                     'mu_sim': (u'\u03BC_sim',1, ''),
-                    'mu_fit': (u'\u03BC_fit',1, ''),}
+                    'mu_fit': (u'\u03BC_fit',1, ''),
+                    'steps': ('steps', 1, '')}
 
         try:
             if len(self.res['Qc']) >1:
@@ -463,7 +470,6 @@ class LLEsolver(object):
             if k in dic_res.keys():
                 Info +='\t\t{} = {:.2f} {}\n'.format(dic_res[k][0], it*dic_res[k][1],dic_res[k][2])
 
-
         Info += '\tSimulation Parameters\n'
         for k, it in self.sim.items():
             if k in dic_sim.keys():
@@ -488,7 +494,7 @@ class LLEsolver(object):
                 Info = ''.join([self._greek[ii] if ii in self._greek.keys() else ii for ii in Info])
                 self._logger.info('LLEsovler.Setup', Info)
 
-
+        
         # -- create h5file --
         h5f = h5py.File(tmp_dir + 'ParamLLEJulia.h5', 'w')
         if self._debug:
